@@ -3,6 +3,7 @@ class FFmpy:
     from sys import argv
 
     def __init__(self, *, pytest: list | None = None):
+        self.pytest: bool = False
 
         if pytest is not None:
             self.pytest = True
@@ -85,9 +86,10 @@ class FFmpy:
                 "outputFile": self.outFile,
             }
 
-            self.command = f"ffmpeg {" ".join(self.args)}"
         except Exception:
             pass
+
+        self.command = f"ffmpeg {" ".join(self.args)}"
 
     def run(self, *, confirm: bool = False, debug: bool = False):
         """
