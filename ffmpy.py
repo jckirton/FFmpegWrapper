@@ -54,28 +54,28 @@ class FFmpy:
                 if "-q:v" not in self.outOptions and "-qscale:v" not in self.outOptions:
                     self.outOptions.append("-q:v")
                     self.outOptions.append("65")
-                    self.args.insert(self.args.index(self.outFile), "-q:v")
-                    self.args.insert(self.args.index(self.outFile), "65")
+                    # self.args.insert(self.args.index(self.outFile), "-q:v")
+                    # self.args.insert(self.args.index(self.outFile), "65")
                 if "-tag:v" not in self.outOptions and "-vtag" not in self.outOptions:
                     self.outOptions.append("-tag:v")
                     self.outOptions.append("avc1")
-                    self.args.insert(self.args.index(self.outFile), "-tag:v")
-                    self.args.insert(self.args.index(self.outFile), "avc1")
+                    # self.args.insert(self.args.index(self.outFile), "-tag:v")
+                    # self.args.insert(self.args.index(self.outFile), "avc1")
             if self.outVcodec == "hevc":
-                self.args[self.args.index(self.outVcodec)] = "hevc_videotoolbox"
+                # self.args[self.args.index(self.outVcodec)] = "hevc_videotoolbox"
                 self.outOptions[self.outOptions.index(self.outVcodec)] = (
                     "hevc_videotoolbox"
                 )
                 if "-q:v" not in self.outOptions and "-qscale:v" not in self.outOptions:
                     self.outOptions.append("-q:v")
                     self.outOptions.append("65")
-                    self.args.insert(self.args.index(self.outFile), "-q:v")
-                    self.args.insert(self.args.index(self.outFile), "65")
+                    # self.args.insert(self.args.index(self.outFile), "-q:v")
+                    # self.args.insert(self.args.index(self.outFile), "65")
                 if "-tag:v" not in self.outOptions and "-vtag" not in self.outOptions:
                     self.outOptions.append("-tag:v")
                     self.outOptions.append("hvc1")
-                    self.args.insert(self.args.index(self.outFile), "-tag:v")
-                    self.args.insert(self.args.index(self.outFile), "hvc1")
+                    # self.args.insert(self.args.index(self.outFile), "-tag:v")
+                    # self.args.insert(self.args.index(self.outFile), "hvc1")
 
             self.sorted = {
                 "debug": self.debug,
@@ -89,7 +89,16 @@ class FFmpy:
         except Exception:
             pass
 
-        self.command = f"ffmpeg {" ".join(self.args)}"
+        self.runArgs = [].copy()
+        for opt in self.inOptions:
+            self.runArgs.append(opt)
+        self.runArgs.append("-i")
+        self.runArgs.append(self.inFile)
+        for opt in self.outOptions:
+            self.runArgs.append(opt)
+        self.runArgs.append(self.outFile)
+
+        self.command = f"ffmpeg {" ".join(self.runArgs)}"
 
     def run(self, *, confirm: bool = False, debug: bool = False):
         """
@@ -108,7 +117,7 @@ class FFmpy:
             self.system(self.command)
         elif self.debug:
             print(f"\n\nSorted Arguments:\n{self}")
-            print(f"\nProcessed Args:\n{self.args}")
+            print(f"\nProcessed Args:\n{self.runArgs}")
             print(f"\nUntouched Args:\n{self.rawArgs}")
             print(f"\nCommand:\n{self.command}")
             subsequentDebug = input(f"\n\n{" ":5}Subsequent Debug Arguments\n\n")
