@@ -17,7 +17,9 @@ class FFmpy:
         self.debug: bool = False
         self.inFile: str | None = None
         self.outFile: str | None = None
-        self.outVcodec: str | None
+        self.outVcodec: str | None = None
+        self.inOptions: list = [].copy()
+        self.outOptions: list = [].copy()
 
         try:
 
@@ -77,23 +79,23 @@ class FFmpy:
                     # self.args.insert(self.args.index(self.outFile), "-tag:v")
                     # self.args.insert(self.args.index(self.outFile), "hvc1")
 
-            self.sorted = {
-                "debug": self.debug,
-                "inOptions": self.inOptions,
-                "inputFile": self.inFile,
-                "outputVcodec": self.outVcodec,
-                "outputOptions": self.outOptions,
-                "outputFile": self.outFile,
-            }
+        except Exception as err:
+            print(err)
 
-        except Exception:
-            pass
-
+        self.sorted = {
+            "debug": self.debug,
+            "inOptions": self.inOptions,
+            "inputFile": self.inFile,
+            "outputVcodec": self.outVcodec,
+            "outputOptions": self.outOptions,
+            "outputFile": self.outFile,
+        }
         self.runArgs = [].copy()
         for opt in self.inOptions:
             self.runArgs.append(opt)
-        self.runArgs.append("-i")
-        self.runArgs.append(self.inFile)
+        if self.inFile:
+            self.runArgs.append("-i")
+            self.runArgs.append(self.inFile)
         for opt in self.outOptions:
             self.runArgs.append(opt)
         self.runArgs.append(self.outFile)

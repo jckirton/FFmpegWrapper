@@ -90,29 +90,29 @@ def test_vcodec_replace():
     testhevc = "-i inFile.mkv -vcodec hevc outFile.mkv"
     ffmpyhevc = FFmpy(pytest=testhevc.split())
 
-    assert ffmpy264.args[ffmpy264.args.index("-vcodec") + 1] == "h264_videotoolbox"
-    assert ffmpyhevc.args[ffmpyhevc.args.index("-vcodec") + 1] == "hevc_videotoolbox"
+    assert ffmpy264.runArgs[ffmpy264.runArgs.index("-vcodec") + 1] == "h264_videotoolbox"
+    assert ffmpyhevc.runArgs[ffmpyhevc.runArgs.index("-vcodec") + 1] == "hevc_videotoolbox"
 
     test264 = "-i inFile.mkv -c:v h264 outFile.mkv"
     ffmpy264 = FFmpy(pytest=test264.split())
     testhevc = "-i inFile.mkv -c:v hevc outFile.mkv"
     ffmpyhevc = FFmpy(pytest=testhevc.split())
 
-    assert ffmpy264.args[ffmpy264.args.index("-c:v") + 1] == "h264_videotoolbox"
-    assert ffmpyhevc.args[ffmpyhevc.args.index("-c:v") + 1] == "hevc_videotoolbox"
+    assert ffmpy264.runArgs[ffmpy264.runArgs.index("-c:v") + 1] == "h264_videotoolbox"
+    assert ffmpyhevc.runArgs[ffmpyhevc.runArgs.index("-c:v") + 1] == "hevc_videotoolbox"
 
     test264 = "-i inFile.mkv -codec:v h264 outFile.mkv"
     ffmpy264 = FFmpy(pytest=test264.split())
     testhevc = "-i inFile.mkv -codec:v hevc outFile.mkv"
     ffmpyhevc = FFmpy(pytest=testhevc.split())
 
-    assert ffmpy264.args[ffmpy264.args.index("-codec:v") + 1] == "h264_videotoolbox"
-    assert ffmpyhevc.args[ffmpyhevc.args.index("-codec:v") + 1] == "hevc_videotoolbox"
+    assert ffmpy264.runArgs[ffmpy264.runArgs.index("-codec:v") + 1] == "h264_videotoolbox"
+    assert ffmpyhevc.runArgs[ffmpyhevc.runArgs.index("-codec:v") + 1] == "hevc_videotoolbox"
 
     testav1 = "-i inFile.mkv -vcodec av1 outFile.mkv"
     ffmpyav1 = FFmpy(pytest=testav1.split())
 
-    assert ffmpyav1.args[ffmpyav1.args.index("-vcodec") + 1] == "av1"
+    assert ffmpyav1.runArgs[ffmpyav1.runArgs.index("-vcodec") + 1] == "av1"
 
 
 def test_outfile_options_replacer():
