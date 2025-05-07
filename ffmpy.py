@@ -17,7 +17,7 @@ class FFmpy:
         self.debug: bool = False
         self.inFile: str | None = None
         self.outFile: str | None = None
-        self.vcodec: str | None
+        self.outVcodec: str | None
 
         try:
 
@@ -38,17 +38,17 @@ class FFmpy:
             ]
 
             if "-vcodec" in self.outOptions:
-                self.vcodec = self.outOptions[self.outOptions.index("-vcodec") + 1]
+                self.outVcodec = self.outOptions[self.outOptions.index("-vcodec") + 1]
             elif "-c:v" in self.outOptions:
-                self.vcodec = self.outOptions[self.outOptions.index("-c:v") + 1]
+                self.outVcodec = self.outOptions[self.outOptions.index("-c:v") + 1]
             elif "-codec:v" in self.outOptions:
-                self.vcodec = self.outOptions[self.outOptions.index("-codec:v") + 1]
+                self.outVcodec = self.outOptions[self.outOptions.index("-codec:v") + 1]
             else:
-                self.vcodec = None
+                self.outVcodec = None
 
-            if self.vcodec == "h264":
-                self.args[self.args.index(self.vcodec)] = "h264_videotoolbox"
-                self.outOptions[self.outOptions.index(self.vcodec)] = (
+            if self.outVcodec == "h264":
+                self.args[self.args.index(self.outVcodec)] = "h264_videotoolbox"
+                self.outOptions[self.outOptions.index(self.outVcodec)] = (
                     "h264_videotoolbox"
                 )
                 if "-q:v" not in self.outOptions and "-qscale:v" not in self.outOptions:
@@ -61,9 +61,9 @@ class FFmpy:
                     self.outOptions.append("avc1")
                     self.args.insert(self.args.index(self.outFile), "-tag:v")
                     self.args.insert(self.args.index(self.outFile), "avc1")
-            if self.vcodec == "hevc":
-                self.args[self.args.index(self.vcodec)] = "hevc_videotoolbox"
-                self.outOptions[self.outOptions.index(self.vcodec)] = (
+            if self.outVcodec == "hevc":
+                self.args[self.args.index(self.outVcodec)] = "hevc_videotoolbox"
+                self.outOptions[self.outOptions.index(self.outVcodec)] = (
                     "hevc_videotoolbox"
                 )
                 if "-q:v" not in self.outOptions and "-qscale:v" not in self.outOptions:
@@ -81,7 +81,7 @@ class FFmpy:
                 "debug": self.debug,
                 "inOptions": self.inOptions,
                 "inputFile": self.inFile,
-                "vcodec": self.vcodec,
+                "outputVcodec": self.outVcodec,
                 "outputOptions": self.outOptions,
                 "outputFile": self.outFile,
             }

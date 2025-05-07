@@ -67,19 +67,19 @@ def test_vcodec_sep():
     assert (
         sep_test_junk_gen(
             ["-vcodec", "av1"], preInsert=["-i", "inFile"], afterOption="-i"
-        ).vcodec
+        ).outVcodec
         == "av1"
     )
     assert (
         sep_test_junk_gen(
             ["-c:v", "av1"], preInsert=["-i", "inFile"], afterOption="-i"
-        ).vcodec
+        ).outVcodec
         == "av1"
     )
     assert (
         sep_test_junk_gen(
             ["-codec:v", "av1"], preInsert=["-i", "inFile"], afterOption="-i"
-        ).vcodec
+        ).outVcodec
         == "av1"
     )
 
